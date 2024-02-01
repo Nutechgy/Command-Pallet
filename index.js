@@ -1,19 +1,48 @@
-// TODO: Create a class constructor named BlogPost that takes in 'authorName', 'title', 'text', and 'createdOn'.
+const fs = require('fs');
+const inquirer = require('inquirer');
+const chroma = require('chroma-js');
 
-// TODO: Give BlogPost a property called 'comments' that is set to an empty array.
+async function generateLogo() {
+  // Prompt user for input
+  const userInput = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'text',
+      message: 'Enter up to three characters:',
+      validate: (input) => input.length > 0 && input.length <= 3,
+    },
+    {
+      type: 'input',
+      name: 'textColor',
+      message: 'Enter text color (keyword or hex):',
+    },
+    {
+      type: 'list',
+      name: 'shape',
+      message: 'Choose a shape:',
+      choices: ['circle', 'triangle', 'square'],
+    },
+    {
+      type: 'input',
+      name: 'shapeColor',
+      message: 'Enter shape color (keyword or hex):',
+    },
+  ]);
 
-// TODO: Give BlogPost a method called printMetaData() that logs a message saying 'Created by (authorName) on (createdOn)'.
+  // Generate SVG content
+  const svgContent = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+    <rect width="100%" height="100%" fill="${chroma(userInput.shapeColor)}"/>
+    <text x="50%" y="50%" font-size="30" fill="${chroma(userInput.textColor)}" dominant-baseline="middle" text-anchor="middle">${userInput.text}</text>
+  </svg>
+  `;
 
-// TODO: Give Blog Post a method called addComment() that takes in a comment and adds it to the comments array.
+  // Write SVG content to logo.svg file
+  fs.writeFileSync('logo.svg', svgContent);
 
-// TODO: Create a class constructor called Comment that takes in 'authorName', 'text', 'createdOn', and 'reaction'.
+  console.log('Generated logo.svg');
+}
 
-// TODO: Give Comment a method called printMetaData() that logs a message saying 'Created by (authorName) on (createdOn) (reaction)'.
+// Run the logo generation function
+generateLogo();
 
-// TODO: Create a new object using the Comment class constructor.
-
-// TODO: Create a new object using the BlogPost class constructor.
-
-// TODO: Use the addComment() method on your newly created BlogPost to add your newly created Comment to its comments array.
-
-// TODO: Print the meta data for both the BlogPost and the Comment to the console.
