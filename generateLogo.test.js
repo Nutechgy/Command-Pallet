@@ -1,8 +1,8 @@
 const fs = require('fs');
-const { generateLogo } = require(generateLogo.test.js');
+const { generateLogo } = require('generateLogo.test.js')
 
 jest.mock('inquire' , () => ({
-  prompt: jest.fn(),}));
+  prompt: jest.fn(),}))
 
 describe('generateLogo', () => {
     it('generates logo with valid input', async () => {
@@ -12,7 +12,7 @@ describe('generateLogo', () => {
     it('handles invalid input gracefully', async () => {
         // Test case code goes here
     });
-});
+})
 
 it('generates logo with valid input', async () => {
     // Mock user input

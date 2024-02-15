@@ -2,6 +2,7 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const chroma = require('chroma-js');
 
+
 async function generateLogo() {
   // Prompt user for input
   const userInput = await inquirer.prompt([
@@ -28,14 +29,26 @@ async function generateLogo() {
       message: 'Enter shape color (keyword or hex):',
     },
   ]);
-
+  let svgContent;
   // Generate SVG content
-  const svgContent = `
-  <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+  if (userInput.shape === 'square') {
+
+    svgContent = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
     <rect width="100%" height="100%" fill="${chroma(userInput.shapeColor)}"/>
     <text x="50%" y="50%" font-size="30" fill="${chroma(userInput.textColor)}" dominant-baseline="middle" text-anchor="middle">${userInput.text}</text>
-  </svg>
-  `;
+    </svg>
+    `;
+  } else if (userInput.shape === 'circle') {
+    svgContent = `
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+<circle r="45" cx="50" cy="50" fill="${chroma(userInput.shapeColor)}" />
+<text x="50%" y="50%" font-size="30" fill="${chroma(userInput.textColor)}" 
+dominant-baseline="middle" text-anchor="middle">${userInput.text}</text>
+</svg>
+`
+  }
+  
 
   // Write SVG content to logo.svg file
   fs.writeFileSync('logo.svg', svgContent);
