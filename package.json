@@ -10,7 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chroma": "^0.0.1",
     "chroma-js": "^2.4.2",
-    "inquirer": "^8.0.0"
+    "inquirer": "^8.2.6",
+    "node": "^18.20.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }

@@ -1,26 +1,18 @@
 const fs = require('fs');
-const { generateLogo } = require('generateLogo.test.js')
+const { generateLogo } = require('/generateLogo.test.js.'); // AdjustC:\Users\terem\OneDrive\Documents\Command-Pallet\generateLogo.test.js the path to the file containing generateLogo function
 
-jest.mock('inquire' , () => ({
-  prompt: jest.fn(),}))
+jest.mock('inquirer', () => ({
+  prompt: jest.fn(),
+}));
 
 describe('generateLogo', () => {
-    it('generates logo with valid input', async () => {
-        // Test case code goes here
-    });
-
-    it('handles invalid input gracefully', async () => {
-        // Test case code goes here
-    });
-})
-
-it('generates logo with valid input', async () => {
+  it('generates logo with valid input', async () => {
     // Mock user input
     inquirer.prompt.mockResolvedValueOnce({
-        text: 'ABC',
-        textColor: 'black',
-        shape: 'circle',
-        shapeColor: 'blue',
+      text: 'ABC',
+      textColor: 'black',
+      shape: 'circle',
+      shapeColor: 'blue',
     });
 
     // Run the function
@@ -28,9 +20,21 @@ it('generates logo with valid input', async () => {
 
     // Check if logo.svg file is created
     expect(fs.existsSync('logo.svg')).toBe(true);
-});
-async function generateLogo() {
-    // Original function code
-}
+  });
 
-module.exports = { generateLogo };
+  it('handles invalid input gracefully', async () => {
+    // Mock user input with invalid text length
+    inquirer.prompt.mockResolvedValueOnce({
+      text: '',
+      textColor: 'black',
+      shape: 'circle',
+      shapeColor: 'blue',
+    });
+
+    // Run the function
+    await generateLogo();
+
+    // Check if logo.svg file is NOT created
+    expect(fs.existsSync('logo.svg')).toBe(false);
+  });
+});
