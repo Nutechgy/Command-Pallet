@@ -1,5 +1,6 @@
 const fs = require('fs');
-const { generateLogo } = require('/generateLogo.test.js.'); // AdjustC:\Users\terem\OneDrive\Documents\Command-Pallet\generateLogo.test.js the path to the file containing generateLogo function
+const { generateLogo } = require('/generateLogo'); // AdjustC:\Users\terem\OneDrive\Documents\Command-Pallet\generateLogo.test.js the path to the file containing generateLogo function
+const inquirer = require('inquirer');
 
 jest.mock('inquirer', () => ({
   prompt: jest.fn(),
